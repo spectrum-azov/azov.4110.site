@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Google Sheets Config
-const SHEET_ID = process.env.GOOGLE_SHEET_ID || '1dQUuwqX8xwnYad2SHMUH4gPNwUimzQnr9BWxF0Qwk4U';
+const SHEET_ID = process.env.GOOGLE_SHEET_ID;
 
 // Helper to get authenticated doc for WRITING
 async function getAuthenticatedDoc() {
@@ -43,13 +43,13 @@ async function startServer() {
       // Fetch the first sheet as CSV
       const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
       const response = await fetch(csvUrl);
-      
+
       if (!response.ok) {
         throw new Error(`Failed to fetch CSV: ${response.statusText}`);
       }
 
       const csvText = await response.text();
-      
+
       // Parse CSV
       const result = Papa.parse(csvText, {
         header: true,
@@ -69,9 +69,9 @@ async function startServer() {
       res.json(vacancies);
     } catch (error: any) {
       console.error('Error reading vacancies from public CSV:', error);
-      res.status(500).json({ 
-        error: 'Failed to read vacancies', 
-        details: error.message 
+      res.status(500).json({
+        error: 'Failed to read vacancies',
+        details: error.message
       });
     }
   });
@@ -81,7 +81,7 @@ async function startServer() {
     try {
       const doc = await getAuthenticatedDoc();
       let sheet = doc.sheetsByTitle['Applications'];
-      
+
       if (!sheet) {
         // Try to create it if it doesn't exist
         sheet = await doc.addSheet({ headerValues: ['timestamp', 'lastName', 'firstName', 'middleName', 'phone', 'telegram', 'isMilitary'], title: 'Applications' });
@@ -95,16 +95,16 @@ async function startServer() {
       res.json({ success: true });
     } catch (error: any) {
       console.error('Error saving application:', error);
-      
+
       // Specific error message for missing credentials
       if (error.message === 'Service Account credentials missing') {
-        return res.status(503).json({ 
-          error: 'Server Configuration Required', 
-          details: 'To save data, the site owner must configure a Google Service Account in the settings.' 
+        return res.status(503).json({
+          error: 'Server Configuration Required',
+          details: 'To save data, the site owner must configure a Google Service Account in the settings.'
         });
       }
 
-      res.status(500).json({ 
+      res.status(500).json({
         error: 'Failed to save application',
         details: error.message
       });
