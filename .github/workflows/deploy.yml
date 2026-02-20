@@ -39,9 +39,6 @@ jobs:
         run: npm ci
       - name: Build
         env:
-          GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
-          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
-          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
           VITE_GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
           VITE_APPS_SCRIPT_URL: ${{ secrets.VITE_APPS_SCRIPT_URL }}
           VITE_GOOGLE_SHEET_ID_APPLICATIONS: ${{ secrets.VITE_GOOGLE_SHEET_ID_APPLICATIONS }}
