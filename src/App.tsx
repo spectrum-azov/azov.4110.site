@@ -33,10 +33,8 @@ export default function App() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
   useEffect(() => {
-    const SHEET_ID = import.meta.env.VITE_GOOGLE_SHEET_ID || '1dQUuwqX8xwnYad2SHMUH4gPNwUimzQnr9BWxF0Qwk4U';
-    const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${import.meta.env.GOOGLE_SHEET_ID}/export?format=csv`;
 
     fetch(csvUrl)
       .then(res => {
@@ -204,8 +202,8 @@ export default function App() {
           <button
             onClick={() => setActiveTab('combat')}
             className={`flex-1 py-6 flex items-center justify-center gap-3 text-xl font-bold uppercase tracking-wider transition-all duration-300 ${activeTab === 'combat'
-                ? 'bg-[#D4AF7A] text-black'
-                : 'bg-transparent text-white hover:bg-white/5'
+              ? 'bg-[#D4AF7A] text-black'
+              : 'bg-transparent text-white hover:bg-white/5'
               }`}
           >
             <Zap size={24} fill={activeTab === 'combat' ? 'black' : 'none'} />
@@ -214,8 +212,8 @@ export default function App() {
           <button
             onClick={() => setActiveTab('rear')}
             className={`flex-1 py-6 flex items-center justify-center gap-3 text-xl font-bold uppercase tracking-wider transition-all duration-300 ${activeTab === 'rear'
-                ? 'bg-[#D4AF7A] text-black'
-                : 'bg-transparent text-white hover:bg-white/5'
+              ? 'bg-[#D4AF7A] text-black'
+              : 'bg-transparent text-white hover:bg-white/5'
               }`}
           >
             <Shield size={24} fill={activeTab === 'rear' ? 'black' : 'none'} />
