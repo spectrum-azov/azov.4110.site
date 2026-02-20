@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --color-corps-orange: #FF9F1C;
+  --color-corps-dark: #050505;
+  --color-corps-gray: #1A1A1A;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Oswald", "Impact", sans-serif;
+}
+
+@layer utilities {
+  .text-outline {
+    -webkit-text-stroke: 1px currentColor;
+    color: transparent;
+  }
+}
