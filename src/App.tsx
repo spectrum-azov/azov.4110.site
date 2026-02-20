@@ -1,11 +1,11 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { motion } from 'motion/react';
-import { 
-  Menu, 
-  ArrowUpRight, 
-  Shield, 
-  ChevronDown, 
-  Check, 
+import {
+  Menu,
+  ArrowUpRight,
+  Shield,
+  ChevronDown,
+  Check,
   Zap,
   Facebook,
   Instagram,
@@ -35,9 +35,35 @@ export default function App() {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   useEffect(() => {
-    fetch('/api/vacancies')
-      .then(res => res.json())
-      .then(data => setVacancies(data))
+    const SHEET_ID = import.meta.env.VITE_GOOGLE_SHEET_ID || '1dQUuwqX8xwnYad2SHMUH4gPNwUimzQnr9BWxF0Qwk4U';
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
+
+    fetch(csvUrl)
+      .then(res => {
+        if (!res.ok) throw new Error(`Failed to fetch CSV: ${res.statusText}`);
+        return res.text();
+      })
+      .then(csvText => {
+        // Minimal CSV parser (handles quoted fields)
+        const lines = csvText.split('\n').filter(l => l.trim());
+        const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim().toLowerCase());
+        const data = lines.slice(1).map(line => {
+          const values = line.match(/(".*?"|[^,]+|(?<=,)(?=,)|^(?=,))/g) || [];
+          const row: Record<string, string> = {};
+          headers.forEach((h, i) => {
+            row[h] = (values[i] || '').replace(/^"|"$/g, '').trim();
+          });
+          return row;
+        });
+
+        const parsed = data.map((row, i) => ({
+          id: row['id'] || row['№'] || String(i),
+          title: row['title'] || row['назва'] || row['vacancy'] || 'Untitled',
+          category: ((row['category'] || row['категорія'] || 'combat').toLowerCase().includes('rear') ? 'rear' : 'combat') as 'combat' | 'rear',
+        }));
+
+        setVacancies(parsed);
+      })
       .catch(err => console.error('Failed to fetch vacancies:', err));
   }, []);
 
@@ -90,9 +116,9 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="text-corps-orange">
-              <img 
-                src="https://azov.army/wp-content/uploads/2025/04/korpus-azov-696kh696.png" 
-                alt="12-та бригада спеціального призначення НГУ" 
+              <img
+                src="https://azov.army/wp-content/uploads/2025/04/korpus-azov-696kh696.png"
+                alt="12-та бригада спеціального призначення НГУ"
                 className="h-12 w-auto"
               />
             </div>
@@ -106,14 +132,14 @@ export default function App() {
             <button className="border border-corps-orange text-corps-orange px-6 py-2 uppercase font-bold tracking-wider hover:bg-corps-orange hover:text-black transition-colors duration-300">
               Подати заявку
             </button>
-            
+
             <div className="flex items-center gap-2 cursor-pointer hover:text-corps-orange transition-colors">
               <img src="https://flagcdn.com/w20/ua.png" alt="Ukraine" className="w-5 h-auto rounded-sm" />
               <span className="font-bold">УКР</span>
               <ChevronDown size={16} />
             </div>
 
-            <button 
+            <button
               className="flex items-center gap-2 font-bold uppercase tracking-wider hover:text-corps-orange transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
@@ -121,7 +147,7 @@ export default function App() {
               <span>Меню</span>
             </button>
           </div>
-          
+
           {/* Mobile Menu Button */}
           <button className="md:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             <Menu size={28} />
@@ -133,7 +159,7 @@ export default function App() {
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-[80vh] flex flex-col justify-center">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative z-10">
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -146,7 +172,7 @@ export default function App() {
           </div>
 
           <div className="relative z-10">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -167,7 +193,7 @@ export default function App() {
 
         {/* Decorative background elements */}
         <div className="absolute top-1/2 left-0 w-full h-full -z-0 pointer-events-none opacity-20">
-           <div className="absolute top-0 left-10 w-64 h-96 bg-gradient-to-b from-corps-orange/20 to-transparent transform -skew-x-12 blur-3xl"></div>
+          <div className="absolute top-0 left-10 w-64 h-96 bg-gradient-to-b from-corps-orange/20 to-transparent transform -skew-x-12 blur-3xl"></div>
         </div>
       </section>
 
@@ -175,24 +201,22 @@ export default function App() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Tabs */}
         <div className="flex w-full mb-12 border border-corps-orange/30">
-          <button 
+          <button
             onClick={() => setActiveTab('combat')}
-            className={`flex-1 py-6 flex items-center justify-center gap-3 text-xl font-bold uppercase tracking-wider transition-all duration-300 ${
-              activeTab === 'combat' 
-                ? 'bg-[#D4AF7A] text-black' 
+            className={`flex-1 py-6 flex items-center justify-center gap-3 text-xl font-bold uppercase tracking-wider transition-all duration-300 ${activeTab === 'combat'
+                ? 'bg-[#D4AF7A] text-black'
                 : 'bg-transparent text-white hover:bg-white/5'
-            }`}
+              }`}
           >
             <Zap size={24} fill={activeTab === 'combat' ? 'black' : 'none'} />
             Бойові
           </button>
-          <button 
+          <button
             onClick={() => setActiveTab('rear')}
-            className={`flex-1 py-6 flex items-center justify-center gap-3 text-xl font-bold uppercase tracking-wider transition-all duration-300 ${
-              activeTab === 'rear' 
-                ? 'bg-[#D4AF7A] text-black' 
+            className={`flex-1 py-6 flex items-center justify-center gap-3 text-xl font-bold uppercase tracking-wider transition-all duration-300 ${activeTab === 'rear'
+                ? 'bg-[#D4AF7A] text-black'
                 : 'bg-transparent text-white hover:bg-white/5'
-            }`}
+              }`}
           >
             <Shield size={24} fill={activeTab === 'rear' ? 'black' : 'none'} />
             Тилові
@@ -202,7 +226,7 @@ export default function App() {
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredVacancies.map((vacancy) => (
-            <motion.div 
+            <motion.div
               key={vacancy.id}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -218,7 +242,7 @@ export default function App() {
                   {vacancy.title}
                 </h3>
               </div>
-              
+
               <button className="w-full border border-corps-orange text-corps-orange py-3 px-4 flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wider hover:bg-corps-orange hover:text-black transition-all group-hover:bg-corps-orange group-hover:text-black">
                 Подати заявку
                 <ArrowUpRight size={18} />
@@ -241,16 +265,16 @@ export default function App() {
             <h2 className="text-4xl md:text-5xl font-black uppercase text-corps-orange mb-12">
               Потрібна консультація?
             </h2>
-            
+
             <div className="relative aspect-square w-full max-w-md mx-auto lg:mx-0 bg-[#0A0A0A] border border-white/5 flex items-center justify-center overflow-hidden">
-               {/* Logo Graphic */}
-               <div className="relative w-64 h-64 flex items-center justify-center">
-                  <img 
-                    src="https://azov.army/wp-content/uploads/2025/04/korpus-azov-696kh696.png" 
-                    alt="Logo" 
-                    className="w-full h-full object-contain opacity-80"
-                  />
-               </div>
+              {/* Logo Graphic */}
+              <div className="relative w-64 h-64 flex items-center justify-center">
+                <img
+                  src="https://azov.army/wp-content/uploads/2025/04/korpus-azov-696kh696.png"
+                  alt="Logo"
+                  className="w-full h-full object-contain opacity-80"
+                />
+              </div>
             </div>
           </div>
 
@@ -259,24 +283,24 @@ export default function App() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm text-gray-400">Прізвище*</label>
-                  <input 
+                  <input
                     type="text"
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleInputChange}
-                    placeholder="Прізвище" 
+                    placeholder="Прізвище"
                     required
                     className="w-full bg-[#1A1A1A] border border-white/10 p-4 text-white focus:border-corps-orange focus:outline-none transition-colors"
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm text-gray-400">Номер телефону*</label>
-                  <input 
+                  <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    placeholder="+38 (___) ___-__-__" 
+                    placeholder="+38 (___) ___-__-__"
                     required
                     className="w-full bg-[#1A1A1A] border border-white/10 p-4 text-white focus:border-corps-orange focus:outline-none transition-colors"
                   />
@@ -286,24 +310,24 @@ export default function App() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm text-gray-400">Ім'я*</label>
-                  <input 
+                  <input
                     type="text"
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleInputChange}
-                    placeholder="Ім'я" 
+                    placeholder="Ім'я"
                     required
                     className="w-full bg-[#1A1A1A] border border-white/10 p-4 text-white focus:border-corps-orange focus:outline-none transition-colors"
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm text-gray-400">Нік в Телеграм</label>
-                  <input 
+                  <input
                     type="text"
                     name="telegram"
                     value={formData.telegram}
                     onChange={handleInputChange}
-                    placeholder="Нік в Телеграм" 
+                    placeholder="Нік в Телеграм"
                     className="w-full bg-[#1A1A1A] border border-white/10 p-4 text-white focus:border-corps-orange focus:outline-none transition-colors"
                   />
                 </div>
@@ -311,12 +335,12 @@ export default function App() {
 
               <div className="space-y-2">
                 <label className="text-sm text-gray-400">По батькові</label>
-                <input 
+                <input
                   type="text"
                   name="middleName"
                   value={formData.middleName}
                   onChange={handleInputChange}
-                  placeholder="По батькові" 
+                  placeholder="По батькові"
                   className="w-full bg-[#1A1A1A] border border-white/10 p-4 text-white focus:border-corps-orange focus:outline-none transition-colors"
                 />
               </div>
@@ -325,13 +349,13 @@ export default function App() {
                 <label className="text-sm text-gray-400 block">Чи є військовослужбовцем на даний момент?</label>
                 <div className="flex gap-8">
                   <label className="flex items-center gap-3 cursor-pointer group">
-                    <input 
-                      type="radio" 
-                      name="isMilitary" 
-                      value="yes" 
+                    <input
+                      type="radio"
+                      name="isMilitary"
+                      value="yes"
                       checked={formData.isMilitary === 'yes'}
                       onChange={handleInputChange}
-                      className="hidden" 
+                      className="hidden"
                     />
                     <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${formData.isMilitary === 'yes' ? 'border-corps-orange' : 'border-gray-600 group-hover:border-corps-orange'}`}>
                       {formData.isMilitary === 'yes' && <div className="w-3 h-3 bg-corps-orange rounded-full"></div>}
@@ -339,13 +363,13 @@ export default function App() {
                     <span className="text-white group-hover:text-corps-orange transition-colors">Так</span>
                   </label>
                   <label className="flex items-center gap-3 cursor-pointer group">
-                    <input 
-                      type="radio" 
-                      name="isMilitary" 
-                      value="no" 
+                    <input
+                      type="radio"
+                      name="isMilitary"
+                      value="no"
                       checked={formData.isMilitary === 'no'}
                       onChange={handleInputChange}
-                      className="hidden" 
+                      className="hidden"
                     />
                     <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${formData.isMilitary === 'no' ? 'border-corps-orange' : 'border-gray-600 group-hover:border-corps-orange'}`}>
                       {formData.isMilitary === 'no' && <div className="w-3 h-3 bg-corps-orange rounded-full"></div>}
@@ -364,7 +388,7 @@ export default function App() {
                 </p>
               </div>
 
-              <button 
+              <button
                 type="submit"
                 disabled={isSubmitting}
                 className="w-full bg-corps-orange text-black font-black uppercase py-4 px-6 text-lg tracking-wider hover:bg-white hover:text-black transition-colors flex items-center justify-center gap-2 mt-8 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -395,9 +419,9 @@ export default function App() {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="text-corps-orange">
-                  <img 
-                    src="https://azov.army/wp-content/uploads/2025/04/korpus-azov-696kh696.png" 
-                    alt="12-та бригада спеціального призначення НГУ" 
+                  <img
+                    src="https://azov.army/wp-content/uploads/2025/04/korpus-azov-696kh696.png"
+                    alt="12-та бригада спеціального призначення НГУ"
                     className="h-10 w-auto"
                   />
                 </div>
