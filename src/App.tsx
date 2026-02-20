@@ -79,7 +79,13 @@ export default function App() {
     setSubmitStatus('idle');
 
     try {
-      const response = await fetch(import.meta.env.VITE_APPS_SCRIPT_URL, {
+      const scriptUrl = import.meta.env.VITE_APPS_SCRIPT_URL;
+
+      if (!scriptUrl || scriptUrl === 'PLACEHOLDER_URL_FROM_DEPLOYMENT') {
+        throw new Error('Google Apps Script URL is not configured');
+      }
+
+      await fetch(scriptUrl, {
         method: 'POST',
         mode: 'no-cors', // Apps Script requires no-cors for simple POST or handle CORS in script
         headers: {
@@ -88,7 +94,8 @@ export default function App() {
         body: JSON.stringify(formData),
       });
 
-      // With 'no-cors', we can't check response.ok, so we assume success if no error thrown
+      // With 'no-cors', we assume success if no network error occurs.
+      // However, if the URL was invalid (like 'undefined'), it would have likely failed or been caught above.
       setSubmitStatus('success');
       setFormData({
         lastName: '',
