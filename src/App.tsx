@@ -31,7 +31,6 @@ export default function App() {
     telegram: '',
     isMilitary: 'no'
   });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   useEffect(() => {
