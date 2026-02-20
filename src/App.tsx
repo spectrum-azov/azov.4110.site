@@ -78,27 +78,25 @@ export default function App() {
     setSubmitStatus('idle');
 
     try {
-      const response = await fetch('/api/applications', {
+      const response = await fetch(import.meta.env.VITE_APPS_SCRIPT_URL, {
         method: 'POST',
+        mode: 'no-cors', // Apps Script requires no-cors for simple POST or handle CORS in script
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
-        setSubmitStatus('success');
-        setFormData({
-          lastName: '',
-          firstName: '',
-          middleName: '',
-          phone: '',
-          telegram: '',
-          isMilitary: 'no'
-        });
-      } else {
-        setSubmitStatus('error');
-      }
+      // With 'no-cors', we can't check response.ok, so we assume success if no error thrown
+      setSubmitStatus('success');
+      setFormData({
+        lastName: '',
+        firstName: '',
+        middleName: '',
+        phone: '',
+        telegram: '',
+        isMilitary: 'no'
+      });
     } catch (error) {
       console.error('Error submitting form:', error);
       setSubmitStatus('error');
