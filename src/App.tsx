@@ -34,7 +34,8 @@ export default function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   useEffect(() => {
-    const csvUrl = `https://docs.google.com/spreadsheets/d/${import.meta.env.GOOGLE_SHEET_ID}/export?format=csv`;
+    const SHEET_ID = import.meta.env.GOOGLE_SHEET_ID || process.env.GOOGLE_SHEET_ID;
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
 
     fetch(csvUrl)
       .then(res => {
