@@ -82,7 +82,7 @@ export default function App() {
         method: 'POST',
         mode: 'no-cors', // Apps Script requires no-cors for simple POST or handle CORS in script
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain',
         },
         body: JSON.stringify(formData),
       });
