@@ -24,7 +24,7 @@ jobs:
   # Single deploy job since we're just deploying
   deploy:
     environment:
-      name: github-pages
+      name: gh-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
@@ -41,7 +41,8 @@ jobs:
         env:
           GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
           GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
-          GOOGLE_SHEET_IDЖ: ${{ secrets.GOOGLE_SHEET_ID }}
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          VITE_GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v5
