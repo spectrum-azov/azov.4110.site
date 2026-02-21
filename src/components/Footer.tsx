@@ -20,19 +20,20 @@ export default function Footer() {
                             </div>
                         </div>
                         <div className="flex gap-4">
-                            <a href="#" className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-corps-orange hover:text-black hover:border-corps-orange transition-all">
-                                <Facebook size={18} />
+                            <a href="#" className="w-11 h-11 border border-white/20 flex items-center justify-center hover:bg-corps-orange hover:text-black hover:border-corps-orange transition-all">
+                                <Facebook size={20} />
                             </a>
-                            <a href="#" className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-corps-orange hover:text-black hover:border-corps-orange transition-all">
-                                <Instagram size={18} />
+                            <a href="#" className="w-11 h-11 border border-white/20 flex items-center justify-center hover:bg-corps-orange hover:text-black hover:border-corps-orange transition-all">
+                                <Instagram size={20} />
                             </a>
-                            <a href="#" className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-corps-orange hover:text-black hover:border-corps-orange transition-all">
-                                <Twitter size={18} />
+                            <a href="#" className="w-11 h-11 border border-white/20 flex items-center justify-center hover:bg-corps-orange hover:text-black hover:border-corps-orange transition-all">
+                                <Twitter size={20} />
                             </a>
-                            <a href="#" className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-corps-orange hover:text-black hover:border-corps-orange transition-all">
-                                <Youtube size={18} />
+                            <a href="#" className="w-11 h-11 border border-white/20 flex items-center justify-center hover:bg-corps-orange hover:text-black hover:border-corps-orange transition-all">
+                                <Youtube size={20} />
                             </a>
                         </div>
+
                     </div>
 
                     <div>

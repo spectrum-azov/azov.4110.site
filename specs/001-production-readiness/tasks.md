@@ -22,11 +22,11 @@ description: "Task list for feature implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T003 [P] Extract header and footer components into src/components/Header.tsx and src/components/Footer.tsx
-- [ ] T004 [P] Extract hero section into src/components/HeroSection.tsx
-- [ ] T005 [P] Extract vacancies section into src/components/VacanciesSection.tsx
-- [ ] T006 [P] Extract application form into src/components/ApplicationForm.tsx
-- [ ] T007 Update composition and imports in src/App.tsx
+- [X] T003 [P] Extract header and footer components into src/components/Header.tsx and src/components/Footer.tsx
+- [X] T004 [P] Extract hero section into src/components/HeroSection.tsx
+- [X] T005 [P] Extract vacancies section into src/components/VacanciesSection.tsx
+- [X] T006 [P] Extract application form into src/components/ApplicationForm.tsx
+- [X] T007 Update composition and imports in src/App.tsx
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 

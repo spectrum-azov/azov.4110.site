@@ -24,18 +24,18 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
                 </div>
 
                 <div className="hidden md:flex items-center gap-8">
-                    <button className="border border-corps-orange text-corps-orange px-6 py-2 uppercase font-bold tracking-wider hover:bg-corps-orange hover:text-black transition-colors duration-300">
+                    <button className="border border-corps-orange text-corps-orange px-6 py-2 uppercase font-bold tracking-wider hover:bg-corps-orange hover:text-black transition-colors duration-300 min-h-[44px]">
                         Подати заявку
                     </button>
 
-                    <div className="flex items-center gap-2 cursor-pointer hover:text-corps-orange transition-colors">
+                    <div className="flex items-center gap-2 cursor-pointer hover:text-corps-orange transition-colors min-h-[44px]">
                         <img src="https://flagcdn.com/w20/ua.png" alt="Ukraine" className="w-5 h-auto rounded-sm" />
                         <span className="font-bold">УКР</span>
                         <ChevronDown size={16} />
                     </div>
 
                     <button
-                        className="flex items-center gap-2 font-bold uppercase tracking-wider hover:text-corps-orange transition-colors"
+                        className="flex items-center gap-2 font-bold uppercase tracking-wider hover:text-corps-orange transition-colors min-h-[44px]"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
                         <Menu size={24} />
@@ -44,9 +44,10 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
                 </div>
 
                 {/* Mobile Menu Button */}
-                <button className="md:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <button className="md:hidden text-white min-w-[44px] min-h-[44px] flex items-center justify-center" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     <Menu size={28} />
                 </button>
+
             </div>
         </header>
     );

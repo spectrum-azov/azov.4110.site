@@ -39,75 +39,80 @@ export default function ApplicationForm({
 
                 <div className="bg-transparent">
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <label className="text-sm text-gray-400">Прізвище*</label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                            <div className="space-y-1.5 md:space-y-2">
+                                <label htmlFor="lastName" className="text-sm md:text-base text-gray-400 font-medium">Прізвище*</label>
                                 <input
+                                    id="lastName"
                                     type="text"
                                     name="lastName"
                                     value={formData.lastName}
                                     onChange={handleInputChange}
                                     placeholder="Прізвище"
                                     required
-                                    className="w-full bg-[#1A1A1A] border border-white/10 p-4 text-white focus:border-corps-orange focus:outline-none transition-colors"
+                                    className="w-full bg-[#1A1A1A] border border-white/10 p-3.5 md:p-4 text-white focus:border-corps-orange focus:outline-none transition-colors min-h-[44px]"
                                 />
                             </div>
-                            <div className="space-y-2">
-                                <label className="text-sm text-gray-400">Номер телефону*</label>
+                            <div className="space-y-1.5 md:space-y-2">
+                                <label htmlFor="phone" className="text-sm md:text-base text-gray-400 font-medium">Номер телефону*</label>
                                 <input
+                                    id="phone"
                                     type="tel"
                                     name="phone"
                                     value={formData.phone}
                                     onChange={handleInputChange}
                                     placeholder="+38 (___) ___-__-__"
                                     required
-                                    className="w-full bg-[#1A1A1A] border border-white/10 p-4 text-white focus:border-corps-orange focus:outline-none transition-colors"
+                                    className="w-full bg-[#1A1A1A] border border-white/10 p-3.5 md:p-4 text-white focus:border-corps-orange focus:outline-none transition-colors min-h-[44px]"
                                 />
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <label className="text-sm text-gray-400">Ім'я*</label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                            <div className="space-y-1.5 md:space-y-2">
+                                <label htmlFor="firstName" className="text-sm md:text-base text-gray-400 font-medium">Ім'я*</label>
                                 <input
+                                    id="firstName"
                                     type="text"
                                     name="firstName"
                                     value={formData.firstName}
                                     onChange={handleInputChange}
                                     placeholder="Ім'я"
                                     required
-                                    className="w-full bg-[#1A1A1A] border border-white/10 p-4 text-white focus:border-corps-orange focus:outline-none transition-colors"
+                                    className="w-full bg-[#1A1A1A] border border-white/10 p-3.5 md:p-4 text-white focus:border-corps-orange focus:outline-none transition-colors min-h-[44px]"
                                 />
                             </div>
-                            <div className="space-y-2">
-                                <label className="text-sm text-gray-400">Нік в Телеграм</label>
+                            <div className="space-y-1.5 md:space-y-2">
+                                <label htmlFor="telegram" className="text-sm md:text-base text-gray-400 font-medium">Нік в Телеграм</label>
                                 <input
+                                    id="telegram"
                                     type="text"
                                     name="telegram"
                                     value={formData.telegram}
                                     onChange={handleInputChange}
                                     placeholder="Нік в Телеграм"
-                                    className="w-full bg-[#1A1A1A] border border-white/10 p-4 text-white focus:border-corps-orange focus:outline-none transition-colors"
+                                    className="w-full bg-[#1A1A1A] border border-white/10 p-3.5 md:p-4 text-white focus:border-corps-orange focus:outline-none transition-colors min-h-[44px]"
                                 />
                             </div>
                         </div>
 
-                        <div className="space-y-2">
-                            <label className="text-sm text-gray-400">По батькові</label>
+                        <div className="space-y-1.5 md:space-y-2">
+                            <label htmlFor="middleName" className="text-sm md:text-base text-gray-400 font-medium">По батькові</label>
                             <input
+                                id="middleName"
                                 type="text"
                                 name="middleName"
                                 value={formData.middleName}
                                 onChange={handleInputChange}
                                 placeholder="По батькові"
-                                className="w-full bg-[#1A1A1A] border border-white/10 p-4 text-white focus:border-corps-orange focus:outline-none transition-colors"
+                                className="w-full bg-[#1A1A1A] border border-white/10 p-3.5 md:p-4 text-white focus:border-corps-orange focus:outline-none transition-colors min-h-[44px]"
                             />
                         </div>
 
                         <div className="space-y-4 pt-4">
-                            <label className="text-sm text-gray-400 block">Чи є військовослужбовцем на даний момент?</label>
+                            <label className="text-sm md:text-base text-gray-400 font-medium block">Чи є військовослужбовцем на даний момент?</label>
                             <div className="flex gap-8">
-                                <label className="flex items-center gap-3 cursor-pointer group">
+                                <label className="flex items-center gap-3 cursor-pointer group min-h-[44px]">
                                     <input
                                         type="radio"
                                         name="isMilitary"
@@ -121,7 +126,7 @@ export default function ApplicationForm({
                                     </div>
                                     <span className="text-white group-hover:text-corps-orange transition-colors">Так</span>
                                 </label>
-                                <label className="flex items-center gap-3 cursor-pointer group">
+                                <label className="flex items-center gap-3 cursor-pointer group min-h-[44px]">
                                     <input
                                         type="radio"
                                         name="isMilitary"
@@ -138,7 +143,7 @@ export default function ApplicationForm({
                             </div>
                         </div>
 
-                        <div className="pt-4 flex items-start gap-3">
+                        <div className="pt-4 flex items-start gap-3 min-h-[44px]">
                             <div className="mt-1 w-5 h-5 bg-corps-orange rounded-sm flex items-center justify-center flex-shrink-0">
                                 <Check size={14} className="text-black" />
                             </div>
@@ -146,6 +151,7 @@ export default function ApplicationForm({
                                 Я погоджуюсь з <a href="#" className="text-corps-orange underline">Політикою конфіденційності</a> та підтверджую, що мені від 18 до 58 років*
                             </p>
                         </div>
+
 
                         <button
                             type="submit"

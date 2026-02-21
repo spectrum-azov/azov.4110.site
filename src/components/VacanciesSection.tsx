@@ -39,33 +39,42 @@ export default function VacanciesSection({
                 </button>
             </div>
 
+            {/* Empty State */}
+            {filteredVacancies.length === 0 && (
+                <div className="col-span-1 md:col-span-2 lg:col-span-4 py-20 text-center border border-dashed border-white/20">
+                    <p className="text-gray-400 font-bold uppercase tracking-widest">Вакансій у цьому підрозділі поки немає</p>
+                </div>
+            )}
+
             {/* Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                 {filteredVacancies.map((vacancy) => (
                     <motion.div
                         key={vacancy.id}
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         whileHover={{ y: -5 }}
-                        className="bg-[#111] border border-white/10 p-6 flex flex-col justify-between h-64 group hover:border-corps-orange/50 transition-colors"
+                        className="bg-[#111] border border-white/10 p-5 md:p-6 flex flex-col justify-between h-56 md:h-64 group hover:border-corps-orange/50 transition-colors"
                     >
                         <div>
-                            <div className="flex items-center gap-2 text-gray-400 mb-4 text-sm font-bold uppercase tracking-wider">
+                            <div className="flex items-center gap-2 text-gray-400 mb-3 md:mb-4 text-xs md:text-sm font-bold uppercase tracking-wider">
                                 <Zap size={14} className="text-corps-orange" fill="currentColor" />
                                 {vacancy.category === 'combat' ? 'Бойові' : 'Тилові'}
                             </div>
-                            <h3 className="text-xl font-black uppercase leading-tight mb-4 group-hover:text-corps-orange transition-colors">
+                            <h3 className="text-lg md:text-xl font-black uppercase leading-tight mb-4 group-hover:text-corps-orange transition-colors">
                                 {vacancy.title}
                             </h3>
                         </div>
 
-                        <button className="w-full border border-corps-orange text-corps-orange py-3 px-4 flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wider hover:bg-corps-orange hover:text-black transition-all group-hover:bg-corps-orange group-hover:text-black">
+                        <button className="w-full border border-corps-orange text-corps-orange py-2.5 md:py-3 px-4 flex items-center justify-center gap-2 text-xs md:text-sm font-bold uppercase tracking-wider hover:bg-corps-orange hover:text-black transition-all group-hover:bg-corps-orange group-hover:text-black min-h-[44px]">
+
                             Подати заявку
                             <ArrowUpRight size={18} />
                         </button>
                     </motion.div>
                 ))}
             </div>
+
 
             <div className="mt-12 flex justify-center">
                 <button className="border border-white/30 text-white px-8 py-4 uppercase font-bold tracking-wider hover:border-corps-orange hover:text-corps-orange transition-colors">
