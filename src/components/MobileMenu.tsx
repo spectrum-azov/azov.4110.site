@@ -35,7 +35,12 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
                     <div className="mt-16 w-full max-w-xs">
                         <button
                             className="w-full border-2 border-corps-orange text-corps-orange py-5 uppercase font-black tracking-widest hover:bg-corps-orange hover:text-black transition-all"
-                            onClick={() => setIsOpen(false)}
+                            onClick={() => {
+                                setIsOpen(false);
+                                setTimeout(() => {
+                                    document.getElementById('application-form')?.scrollIntoView({ behavior: 'smooth' });
+                                }, 300);
+                            }}
                         >
                             Подати заявку
                         </button>

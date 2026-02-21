@@ -26,7 +26,10 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
                 </div>
 
                 <div className="hidden md:flex items-center gap-8">
-                    <button className="border border-corps-orange text-corps-orange px-6 py-2 uppercase font-bold tracking-wider hover:bg-corps-orange hover:text-black transition-colors duration-300 min-h-[44px]">
+                    <button
+                        onClick={() => document.getElementById('application-form')?.scrollIntoView({ behavior: 'smooth' })}
+                        className="border border-corps-orange text-corps-orange px-6 py-2 uppercase font-bold tracking-wider hover:bg-corps-orange hover:text-black transition-colors duration-300 min-h-[44px]"
+                    >
                         Подати заявку
                     </button>
 

@@ -68,7 +68,12 @@ export default function VacanciesSection({
 
                         <button
                             onClick={() => {
-                                document.getElementById('application-form')?.scrollIntoView({ behavior: 'smooth' });
+                                const element = document.getElementById('application-form-element');
+                                if (element) {
+                                    const yOffset = -100;
+                                    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                                    window.scrollTo({ top: y, behavior: 'smooth' });
+                                }
                             }}
                             className="w-full border border-corps-orange text-corps-orange py-2.5 md:py-3 px-4 flex items-center justify-center gap-2 text-xs md:text-sm font-bold uppercase tracking-wider hover:bg-corps-orange hover:text-black transition-all group-hover:bg-corps-orange group-hover:text-black min-h-[44px]"
                         >

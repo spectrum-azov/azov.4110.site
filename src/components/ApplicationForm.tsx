@@ -46,7 +46,7 @@ export default function ApplicationForm({
                 </div>
 
                 <div className="bg-transparent">
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form id="application-form-element" onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                             <div className="space-y-1.5 md:space-y-2">
                                 <label htmlFor="lastName" className="text-sm md:text-base text-gray-400 font-medium">Прізвище*</label>
