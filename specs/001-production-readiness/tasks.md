@@ -88,8 +88,8 @@ description: "Task list for feature implementation"
 
 ### Implementation for User Story 4
 
-- [ ] T017 [P] [US4] Update index.html with language="uk" and descriptive page title
-- [ ] T018 [P] [US4] Add Open Graph meta tags (og:title, og:image, etc.) to index.html
+- [X] T017 [P] [US4] Update index.html with language="uk" and descriptive page title
+- [X] T018 [P] [US4] Add Open Graph meta tags (og:title, og:image, etc.) to index.html
 
 ---
 
