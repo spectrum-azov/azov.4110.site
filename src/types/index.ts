@@ -19,6 +19,7 @@ export interface FormValidationState {
     lastName?: string;
     firstName?: string;
     phone?: string;
+    telegram?: string;
     consent?: string;
     overall?: string;
 }

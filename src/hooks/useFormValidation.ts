@@ -9,19 +9,30 @@ export const useFormValidation = () => {
 
         if (!data.lastName.trim()) {
             newErrors.lastName = 'Прізвище є обов’язковим';
+        } else if (data.lastName.trim().length < 2) {
+            newErrors.lastName = 'Прізвище має містити як мінімум 2 символи';
         }
 
         if (!data.firstName.trim()) {
             newErrors.firstName = 'Ім’я є обов’язковим';
+        } else if (data.firstName.trim().length < 2) {
+            newErrors.firstName = 'Ім’я має містити як мінімум 2 символи';
+        }
+
+        if (data.telegram && data.telegram.trim() && data.telegram.trim().length < 2) {
+            // In ApplicationForm.tsx, telegram doesn't have an error display yet, 
+            // but we should validate it if we want to follow the requirement.
+            // We might need to update FormValidationState type too.
+            (newErrors as any).telegram = 'Нікнейм має містити як мінімум 2 символи';
         }
 
         // Ukrainian phone format: +380XXXXXXXXX
-        // Clean phone number from non-digits for easier validation if needed, 
-        // but here we validate the raw input against a regex.
-        const phoneRegex = /^\+?380\d{9}$/;
+        const cleanPhone = data.phone.replace(/[\s\(\)\-\+]/g, '');
+        const phoneRegex = /^380\d{9}$/;
+
         if (!data.phone.trim()) {
             newErrors.phone = 'Номер телефону є обов’язковим';
-        } else if (!phoneRegex.test(data.phone.replace(/\s+/g, ''))) {
+        } else if (!phoneRegex.test(cleanPhone)) {
             newErrors.phone = 'Невірний формат номера (+380XXXXXXXXX)';
         }
 

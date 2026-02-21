@@ -35,15 +35,13 @@ export default function ApplicationForm({
                         Потрібна консультація?
                     </h2>
 
-                    <div className="relative aspect-square w-full max-w-md mx-auto lg:mx-0 bg-[#0A0A0A] border border-white/5 flex items-center justify-center overflow-hidden">
+                    <div className="relative aspect-square w-full max-w-md mx-auto lg:mx-0 bg-[#0A0A0A] border border-white/5 flex items-center justify-center overflow-hidden p-6 md:p-10">
                         {/* Logo Graphic */}
-                        <div className="relative w-64 h-64 flex items-center justify-center">
-                            <img
-                                src="https://azov.army/wp-content/uploads/2025/04/korpus-azov-696kh696.png"
-                                alt="Logo"
-                                className="w-full h-full object-contain opacity-80"
-                            />
-                        </div>
+                        <img
+                            src="https://azov.army/wp-content/uploads/2025/04/korpus-azov-696kh696.png"
+                            alt="Logo"
+                            className="w-full h-full object-contain opacity-90"
+                        />
                     </div>
                 </div>
 
@@ -104,8 +102,9 @@ export default function ApplicationForm({
                                     value={formData.telegram}
                                     onChange={handleInputChange}
                                     placeholder="Нік в Телеграм"
-                                    className="w-full bg-[#1A1A1A] border border-white/10 p-3.5 md:p-4 text-white focus:border-corps-orange focus:outline-none transition-colors min-h-[44px]"
+                                    className={`w-full bg-[#1A1A1A] border p-3.5 md:p-4 text-white focus:border-corps-orange focus:outline-none transition-colors min-h-[44px] ${errors.telegram ? 'border-red-500' : 'border-white/10'}`}
                                 />
+                                {errors.telegram && <p className="text-red-500 text-xs mt-1">{errors.telegram}</p>}
                             </div>
                         </div>
 

@@ -19,9 +19,9 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
                             className="h-12 w-auto"
                         />
                     </div>
-                    <div className="flex flex-col leading-none">
-                        <span className="font-bold text-corps-orange tracking-wider text-sm">12-та бригада спеціального призначення </span>
-                        <span className="font-bold text-white tracking-widest text-lg">Національної Гвардії України</span>
+                    <div className="flex flex-col leading-tight md:leading-none">
+                        <span className="font-bold text-corps-orange tracking-wider text-[10px] xs:text-[11px] sm:text-xs md:text-sm uppercase">12-та бригада спеціального призначення </span>
+                        <span className="font-bold text-white tracking-widest text-[14px] xs:text-[16px] sm:text-lg md:text-xl uppercase">Національної Гвардії України</span>
                     </div>
                 </div>
 
@@ -46,7 +46,7 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
                 </div>
 
                 {/* Mobile Menu Button */}
-                <button className="md:hidden text-white min-w-[44px] min-h-[44px] flex items-center justify-center p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <button className="md:hidden text-white min-w-[44px] min-h-[44px] flex items-center justify-center p-2 z-[60]" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
                 </button>
 
@@ -56,12 +56,13 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
             <AnimatePresence>
                 {isMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="fixed inset-0 top-20 z-40 bg-corps-dark flex flex-col items-center justify-center space-y-8 p-6 md:hidden"
+                        initial={{ opacity: 0, x: '100%' }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: '100%' }}
+                        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                        className="fixed inset-0 z-50 bg-corps-dark flex flex-col items-center justify-start pt-32 space-y-12 p-6 md:hidden overflow-y-auto"
                     >
-                        <nav className="flex flex-col items-center gap-8 text-2xl font-black uppercase tracking-widest">
+                        <nav className="flex flex-col items-center gap-10 text-3xl font-black uppercase tracking-[0.2em]">
                             <a href="#" className="hover:text-corps-orange transition-colors" onClick={() => setIsMenuOpen(false)}>Головна</a>
                             <a href="#" className="hover:text-corps-orange transition-colors" onClick={() => setIsMenuOpen(false)}>Про корпус</a>
                             <a href="#" className="hover:text-corps-orange transition-colors" onClick={() => setIsMenuOpen(false)}>Вакансії</a>
@@ -70,7 +71,7 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
 
                         <div className="pt-8 w-full max-w-xs">
                             <button
-                                className="w-full border-2 border-corps-orange text-corps-orange py-4 uppercase font-black tracking-widest hover:bg-corps-orange hover:text-black transition-all min-h-[44px]"
+                                className="w-full border-2 border-corps-orange text-corps-orange py-5 uppercase font-black tracking-widest hover:bg-corps-orange hover:text-black transition-all min-h-[44px]"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 Подати заявку

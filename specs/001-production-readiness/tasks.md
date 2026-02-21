@@ -97,8 +97,8 @@ description: "Task list for feature implementation"
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T019 [P] Code cleanup and removing unused variables across all files in src/components/
-- [ ] T020 Run build (npm run build) to ensure successful deployment output without TypeScript errors
+- [X] T019 [P] Code cleanup and removing unused variables across all files in src/components/
+- [X] T020 Run build (npm run build) to ensure successful deployment output without TypeScript errors
 
 ---
 
