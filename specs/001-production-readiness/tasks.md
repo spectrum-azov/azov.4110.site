@@ -73,8 +73,8 @@ description: "Task list for feature implementation"
 
 ### Implementation for User Story 3
 
-- [ ] T015 [US3] Implement full-screen overlay component structure via framer-motion in src/components/Header.tsx
-- [ ] T016 [US3] Add navigation link logic (anchor scrolling + close menu toggle) within src/components/Header.tsx
+- [X] T015 [US3] Implement full-screen overlay component structure via framer-motion in src/components/Header.tsx
+- [X] T016 [US3] Add navigation link logic (anchor scrolling + close menu toggle) within src/components/Header.tsx
 
 **Checkpoint**: All interactive user stories should now be functional
 
