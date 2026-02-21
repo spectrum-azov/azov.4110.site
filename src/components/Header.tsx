@@ -27,7 +27,14 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
 
                 <div className="hidden md:flex items-center gap-8">
                     <button
-                        onClick={() => document.getElementById('application-form')?.scrollIntoView({ behavior: 'smooth' })}
+                        onClick={() => {
+                            const element = document.getElementById('application-form-element');
+                            if (element) {
+                                const yOffset = -100;
+                                const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                                window.scrollTo({ top: y, behavior: 'smooth' });
+                            }
+                        }}
                         className="border border-corps-orange text-corps-orange px-6 py-2 uppercase font-bold tracking-wider hover:bg-corps-orange hover:text-black transition-colors duration-300 min-h-[44px]"
                     >
                         Подати заявку
@@ -49,13 +56,14 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
                 </div>
 
                 {/* Mobile Menu Button */}
-                <button className="md:hidden text-white min-w-[44px] min-h-[44px] flex items-center justify-center p-2 z-[60]" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <button
+                    className="md:hidden text-white min-w-[44px] min-h-[44px] flex items-center justify-center p-2 z-[60]"
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                >
                     {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
                 </button>
 
             </div>
-
-
 
         </header>
     );
