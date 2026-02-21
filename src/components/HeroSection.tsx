@@ -9,11 +9,11 @@ export default function HeroSection() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter mb-8 flex flex-col items-center md:items-start gap-1 sm:gap-2"
+                        className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter mb-8 flex flex-col items-center md:items-start gap-0"
                     >
-                        <span className="text-corps-orange leading-none">Твій</span>
-                        <span className="text-corps-orange leading-none">Досвід</span>
-                        <span className="text-corps-orange leading-none">Важливий!</span>
+                        <span className="text-corps-orange leading-[0.85]">Твій</span>
+                        <span className="text-corps-orange leading-[0.85]">Досвід</span>
+                        <span className="text-corps-orange leading-[0.85]">Важливий!</span>
                     </motion.h1>
                 </div>
 
