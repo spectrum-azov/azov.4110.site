@@ -5,8 +5,10 @@ import VacanciesSection from './components/VacanciesSection';
 import ApplicationForm from './components/ApplicationForm';
 import Footer from './components/Footer';
 import { Vacancy, VacancyCategory, ApplicationSubmission } from './types';
+import { useFormValidation } from './hooks/useFormValidation';
 
 export default function App() {
+
   const [activeTab, setActiveTab] = useState<VacancyCategory>('combat');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
@@ -20,6 +22,11 @@ export default function App() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [consent, setConsent] = useState(false);
+
+  const { errors, validate, clearError, setErrors } = useFormValidation();
+
+
 
   useEffect(() => {
     const csvUrl = `https://docs.google.com/spreadsheets/d/${import.meta.env.VITE_GOOGLE_SHEET_ID}/export?format=csv`;
@@ -58,11 +65,20 @@ export default function App() {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value as any }));
+    if (errors[name as keyof typeof errors]) {
+      clearError(name as any);
+    }
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (!validate(formData, consent)) {
+      return;
+    }
+
     setIsSubmitting(true);
+
     setSubmitStatus('idle');
 
     try {
@@ -83,7 +99,10 @@ export default function App() {
 
       // With 'no-cors', we assume success if no network error occurs.
       setSubmitStatus('success');
+      setConsent(false);
+      setErrors({});
       setFormData({
+
         lastName: '',
         firstName: '',
         middleName: '',
@@ -118,7 +137,11 @@ export default function App() {
           handleSubmit={handleSubmit}
           isSubmitting={isSubmitting}
           submitStatus={submitStatus}
+          consent={consent}
+          setConsent={setConsent}
+          errors={errors}
         />
+
       </main>
 
       <Footer />

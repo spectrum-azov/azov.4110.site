@@ -8,15 +8,25 @@ interface ApplicationFormProps {
     handleSubmit: (e: FormEvent) => void;
     isSubmitting: boolean;
     submitStatus: 'idle' | 'success' | 'error';
+    consent: boolean;
+    setConsent: (val: boolean) => void;
+    errors: import('../types').FormValidationState;
 }
+
+
 
 export default function ApplicationForm({
     formData,
     handleInputChange,
     handleSubmit,
     isSubmitting,
-    submitStatus
+    submitStatus,
+    consent,
+    setConsent,
+    errors
 }: ApplicationFormProps) {
+
+
     return (
         <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-16">
@@ -50,8 +60,9 @@ export default function ApplicationForm({
                                     onChange={handleInputChange}
                                     placeholder="Прізвище"
                                     required
-                                    className="w-full bg-[#1A1A1A] border border-white/10 p-3.5 md:p-4 text-white focus:border-corps-orange focus:outline-none transition-colors min-h-[44px]"
+                                    className={`w-full bg-[#1A1A1A] border p-3.5 md:p-4 text-white focus:border-corps-orange focus:outline-none transition-colors min-h-[44px] ${errors.lastName ? 'border-red-500' : 'border-white/10'}`}
                                 />
+                                {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>}
                             </div>
                             <div className="space-y-1.5 md:space-y-2">
                                 <label htmlFor="phone" className="text-sm md:text-base text-gray-400 font-medium">Номер телефону*</label>
@@ -61,10 +72,11 @@ export default function ApplicationForm({
                                     name="phone"
                                     value={formData.phone}
                                     onChange={handleInputChange}
-                                    placeholder="+38 (___) ___-__-__"
+                                    placeholder="+380XXXXXXXXX"
                                     required
-                                    className="w-full bg-[#1A1A1A] border border-white/10 p-3.5 md:p-4 text-white focus:border-corps-orange focus:outline-none transition-colors min-h-[44px]"
+                                    className={`w-full bg-[#1A1A1A] border p-3.5 md:p-4 text-white focus:border-corps-orange focus:outline-none transition-colors min-h-[44px] ${errors.phone ? 'border-red-500' : 'border-white/10'}`}
                                 />
+                                {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                             </div>
                         </div>
 
@@ -79,8 +91,9 @@ export default function ApplicationForm({
                                     onChange={handleInputChange}
                                     placeholder="Ім'я"
                                     required
-                                    className="w-full bg-[#1A1A1A] border border-white/10 p-3.5 md:p-4 text-white focus:border-corps-orange focus:outline-none transition-colors min-h-[44px]"
+                                    className={`w-full bg-[#1A1A1A] border p-3.5 md:p-4 text-white focus:border-corps-orange focus:outline-none transition-colors min-h-[44px] ${errors.firstName ? 'border-red-500' : 'border-white/10'}`}
                                 />
+                                {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
                             </div>
                             <div className="space-y-1.5 md:space-y-2">
                                 <label htmlFor="telegram" className="text-sm md:text-base text-gray-400 font-medium">Нік в Телеграм</label>
@@ -143,14 +156,23 @@ export default function ApplicationForm({
                             </div>
                         </div>
 
-                        <div className="pt-4 flex items-start gap-3 min-h-[44px]">
-                            <div className="mt-1 w-5 h-5 bg-corps-orange rounded-sm flex items-center justify-center flex-shrink-0">
-                                <Check size={14} className="text-black" />
+                        <div className="pt-4 space-y-2">
+                            <div className="flex items-start gap-3 min-h-[44px]">
+                                <button
+                                    type="button"
+                                    onClick={() => setConsent(!consent)}
+                                    className={`mt-1 w-5 h-5 rounded-sm flex items-center justify-center flex-shrink-0 transition-colors ${consent ? 'bg-corps-orange' : 'bg-[#1a1a1a] border border-white/20'} ${errors.consent ? 'border-red-500' : ''}`}
+                                >
+                                    {consent && <Check size={14} className="text-black" />}
+                                </button>
+                                <p className="text-sm text-gray-400">
+                                    Я погоджуюсь з <a href="#" className="text-corps-orange underline">Політикою конфіденційності</a> та підтверджую, що мені від 18 до 58 років*
+                                </p>
                             </div>
-                            <p className="text-sm text-gray-400">
-                                Я погоджуюсь з <a href="#" className="text-corps-orange underline">Політикою конфіденційності</a> та підтверджую, що мені від 18 до 58 років*
-                            </p>
+                            {errors.consent && <p className="text-red-500 text-xs">{errors.consent}</p>}
                         </div>
+
+
 
 
                         <button

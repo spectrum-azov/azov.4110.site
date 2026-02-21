@@ -40,10 +40,10 @@ description: "Task list for feature implementation"
 
 ### Implementation for User Story 1
 
-- [ ] T008 [P] [US1] Apply responsive typography and grid breakpoints (sm:, md:, lg:, xl:) in src/components/HeroSection.tsx
-- [ ] T009 [P] [US1] Apply responsive columns to Vacancy cards and implement the empty state indicator in src/components/VacanciesSection.tsx
-- [ ] T010 [P] [US1] Update form fields to use flexible grid stacking for touch-friendly layout in src/components/ApplicationForm.tsx
-- [ ] T011 [P] [US1] Ensure all interactive elements have 44x44px minimum touch targets in src/components/Header.tsx and src/components/Footer.tsx
+- [X] T008 [P] [US1] Apply responsive typography and grid breakpoints (sm:, md:, lg:, xl:) in src/components/HeroSection.tsx
+- [X] T009 [P] [US1] Apply responsive columns to Vacancy cards and implement the empty state indicator in src/components/VacanciesSection.tsx
+- [X] T010 [P] [US1] Update form fields to use flexible grid stacking for touch-friendly layout in src/components/ApplicationForm.tsx
+- [X] T011 [P] [US1] Ensure all interactive elements have 44x44px minimum touch targets in src/components/Header.tsx and src/components/Footer.tsx
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
