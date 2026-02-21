@@ -57,9 +57,9 @@ description: "Task list for feature implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T012 [P] [US2] Implement custom form validation logic and phone regex (^\(\+?38\)?0\d{9}$) inside src/hooks/useFormValidation.ts
-- [ ] T013 [US2] Update Consent checkbox to use controlled React state instead of static UI in src/components/ApplicationForm.tsx
-- [ ] T014 [US2] Integrate useFormValidation hook to block submission and show inline errors in src/components/ApplicationForm.tsx
+- [X] T012 [P] [US2] Implement custom form validation logic and phone regex (^\(\+?38\)?0\d{9}$) inside src/hooks/useFormValidation.ts
+- [X] T013 [US2] Update Consent checkbox to use controlled React state instead of static UI in src/components/ApplicationForm.tsx
+- [X] T014 [US2] Integrate useFormValidation hook to block submission and show inline errors in src/components/ApplicationForm.tsx
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
