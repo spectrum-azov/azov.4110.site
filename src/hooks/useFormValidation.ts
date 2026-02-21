@@ -20,20 +20,16 @@ export const useFormValidation = () => {
         }
 
         if (data.telegram && data.telegram.trim() && data.telegram.trim().length < 2) {
-            // In ApplicationForm.tsx, telegram doesn't have an error display yet, 
-            // but we should validate it if we want to follow the requirement.
-            // We might need to update FormValidationState type too.
-            (newErrors as any).telegram = 'Нікнейм має містити як мінімум 2 символи';
+            newErrors.telegram = 'Нікнейм має містити як мінімум 2 символи';
         }
 
-        // Ukrainian phone format: +380XXXXXXXXX
-        const cleanPhone = data.phone.replace(/[\s\(\)\-\+]/g, '');
-        const phoneRegex = /^380\d{9}$/;
+        // Clean phone number from non-digits
+        const cleanPhone = data.phone.replace(/\D/g, '');
 
         if (!data.phone.trim()) {
             newErrors.phone = 'Номер телефону є обов’язковим';
-        } else if (!phoneRegex.test(cleanPhone)) {
-            newErrors.phone = 'Невірний формат номера (+380XXXXXXXXX)';
+        } else if (cleanPhone.length !== 12) {
+            newErrors.phone = 'Невірний формат номера (+380 XX XXX-XX-XX)';
         }
 
         if (!consent) {

@@ -35,12 +35,12 @@ export default function ApplicationForm({
                         Потрібна консультація?
                     </h2>
 
-                    <div className="relative aspect-square w-full max-w-md mx-auto lg:mx-0 bg-[#0A0A0A] border border-white/5 flex items-center justify-center overflow-hidden p-6 md:p-10">
+                    <div className="relative aspect-square w-full max-w-md mx-auto lg:mx-0 bg-[#0A0A0A] border border-white/5 flex items-center justify-center overflow-hidden p-4">
                         {/* Logo Graphic */}
                         <img
                             src="https://azov.army/wp-content/uploads/2025/04/korpus-azov-696kh696.png"
                             alt="Logo"
-                            className="w-full h-full object-contain opacity-90"
+                            className="w-full h-full object-contain opacity-95"
                         />
                     </div>
                 </div>

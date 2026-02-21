@@ -64,7 +64,39 @@ export default function App() {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value as any }));
+
+    if (name === 'phone') {
+      // Extract digits only
+      const digits = value.replace(/\D/g, '');
+
+      // Ensure it starts with 380 if the user is typing
+      let formatted = digits;
+      if (digits.length > 0) {
+        if (!digits.startsWith('380')) {
+          // If user typed something else, we could prepend 380 or just keep it.
+          // Let's assume they might start with 0.
+          if (digits.startsWith('0')) {
+            formatted = '38' + digits;
+          } else if (digits.length < 3) {
+            // just typing the start
+          }
+        }
+      }
+
+      // Apply mask: +380 (XX) XXX-XX-XX
+      let mask = '';
+      if (formatted.length > 0) mask += '+';
+      if (formatted.length > 0) mask += formatted.substring(0, 3);
+      if (formatted.length > 3) mask += ' (' + formatted.substring(3, 5);
+      if (formatted.length > 5) mask += ') ' + formatted.substring(5, 8);
+      if (formatted.length > 8) mask += '-' + formatted.substring(8, 10);
+      if (formatted.length > 10) mask += '-' + formatted.substring(10, 12);
+
+      setFormData(prev => ({ ...prev, [name]: mask }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+
     if (errors[name as keyof typeof errors]) {
       clearError(name as any);
     }

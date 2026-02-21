@@ -59,9 +59,17 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
                         initial={{ opacity: 0, x: '100%' }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: '100%' }}
-                        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className="fixed inset-0 z-50 bg-corps-dark flex flex-col items-center justify-start pt-32 space-y-12 p-6 md:hidden overflow-y-auto"
+                        transition={{ duration: 0.3, ease: 'easeOut' }}
+                        className="fixed inset-0 z-[999] bg-[#050505] flex flex-col items-center justify-center p-6 md:hidden"
                     >
+                        <button
+                            className="absolute top-8 right-6 text-white hover:text-corps-orange transition-colors p-2"
+                            onClick={() => setIsMenuOpen(false)}
+                            aria-label="Close menu"
+                        >
+                            <X size={36} />
+                        </button>
+
                         <nav className="flex flex-col items-center gap-10 text-3xl font-black uppercase tracking-[0.2em]">
                             <a href="#" className="hover:text-corps-orange transition-colors" onClick={() => setIsMenuOpen(false)}>Головна</a>
                             <a href="#" className="hover:text-corps-orange transition-colors" onClick={() => setIsMenuOpen(false)}>Про корпус</a>
@@ -69,9 +77,9 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: HeaderProps) {
                             <a href="#" className="hover:text-corps-orange transition-colors" onClick={() => setIsMenuOpen(false)}>Контакти</a>
                         </nav>
 
-                        <div className="pt-8 w-full max-w-xs">
+                        <div className="mt-16 w-full max-w-xs">
                             <button
-                                className="w-full border-2 border-corps-orange text-corps-orange py-5 uppercase font-black tracking-widest hover:bg-corps-orange hover:text-black transition-all min-h-[44px]"
+                                className="w-full border-2 border-corps-orange text-corps-orange py-5 uppercase font-black tracking-widest hover:bg-corps-orange hover:text-black transition-all"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 Подати заявку
