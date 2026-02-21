@@ -28,7 +28,7 @@ export default function ApplicationForm({
 
 
     return (
-        <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <section id="application-form" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-16">
                 <div>
                     <h2 className="text-4xl md:text-5xl font-black uppercase text-corps-orange mb-12">
